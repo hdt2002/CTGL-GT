@@ -1,44 +1,40 @@
 #include <iostream>
-#include <stack>
-#include <string>
-
+#include <vector>
 using namespace std;
 
-bool check(string s) {
-    stack<char> st;
+int longestIncreasingSubsequence(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> dp(n, 1);
 
-    for (int i = 0; i < s.size(); i++) {
-        char c = s[i];
-        if (c == '(') {
-            st.push(c);
-        }
-        else if (c == ')') {
-            if (st.empty()) {
-                return true;
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
             }
-            st.pop();
         }
     }
 
-    return st.empty();
+    int maxLen = 0;
+    for (int i = 0; i < n; i++) {
+        maxLen = max(maxLen, dp[i]);
+    }
+    return maxLen;
 }
 
 int main() {
-    int t;
-    cin >> t;
+	int t;
+	cin >> t;
+	while (t--){
+    int n;
+    cin >> n;
+    vector<int> nums(n);
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }}
 
-    while (t--) {
-        string s;
-        cin >> s;
-
-        if (check(s)) {
-            cout << "No" << endl;
-        }
-        else {
-            cout << "Yes" << endl;
-        }
-    }
-
+    int ans = longestIncreasingSubsequence(nums);
+    cout << ans << endl;
+    
     return 0;
 }
 
